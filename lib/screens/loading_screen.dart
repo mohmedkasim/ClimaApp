@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:http/http.dart' as http;
 import '../services/location.dart';
@@ -49,23 +50,29 @@ class _LoadingScreenState extends State<LoadingScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        // body: Center(
-        //     child: Column(
-        //   mainAxisAlignment: MainAxisAlignment.center,
-        //   children: [
-        //     Text(address ?? "loading.."),
-        //     SizedBox(height: 10),
-        //     RaisedButton(
-        //       onPressed: () {
-        //         setState(() {
-        //           address = null;
-        //         });
-        //         gettingdata();
-        //       },
-        //       child: Text('getLocation'),
-        //     ),
-        //   ],
-        // )),
-        );
+      body: Center(
+        child: SpinKitDoubleBounce(
+          size: 100,
+          color: Colors.white,
+        ),
+      ),
+      // body: Center(
+      //     child: Column(
+      //   mainAxisAlignment: MainAxisAlignment.center,
+      //   children: [
+      //     Text(address ?? "loading.."),
+      //     SizedBox(height: 10),
+      //     RaisedButton(
+      //       onPressed: () {
+      //         setState(() {
+      //           address = null;
+      //         });
+      //         gettingdata();
+      //       },
+      //       child: Text('getLocation'),
+      //     ),
+      //   ],
+      // )),
+    );
   }
 }
