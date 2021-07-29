@@ -7,6 +7,8 @@ import 'package:http/http.dart' as http;
 import '../services/location.dart';
 import '../services/networking.dart';
 import '../services/networking.dart';
+import '../services/weather.dart';
+import 'location_screen.dart';
 import 'location_screen.dart';
 
 const apiKey = '2c6693f0132e299bc41f2aef4f332e5b';
@@ -17,29 +19,21 @@ class LoadingScreen extends StatefulWidget {
 }
 
 class _LoadingScreenState extends State<LoadingScreen> {
-  void getLocationData() async {
-    Location location = Location();
-    await location.getCurrentLocation();
-    location.longitude = location.longitude;
-    location.latitude = location.latitude;
-
-    NetworkHelper networkHelper = NetworkHelper(
-        'https://api.openweathermap.org/data/2.5/weather?lat=${location.latitude}&lon=${location.longitude}&appid=2c6693f0132e299bc41f2aef4f332e5b&units=metric');
-
-    var weatherData = await networkHelper.getData();
-
-    Navigator.push(
-        context,
-        MaterialPageRoute(
-            builder: (context) =>
-                LocationScreen(locationWeather: weatherData)));
-  }
-
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
     getLocationData();
+  }
+
+  Future<void> getLocationData() async {
+    var weatherData = await WeatherModel().getLocationWeather();
+
+    Navigator.push(context, MaterialPageRoute(builder: (context) {
+      return LocationScreen(
+        locationWeather: weatherData,
+      );
+    }));
   }
 
   @override
